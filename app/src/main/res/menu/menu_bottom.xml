@@ -3,12 +3,12 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/homeFragment"
+        android:id="@+id/menuHome"
         android:icon="@drawable/baseline_home_24"
         android:title="Home"
         app:showAsAction="always" />
     <item
-        android:id="@+id/profileFragment"
+        android:id="@+id/menuProfile"
         android:icon="@drawable/baseline_person_24"
         android:title="Profile"
         app:showAsAction="always" />

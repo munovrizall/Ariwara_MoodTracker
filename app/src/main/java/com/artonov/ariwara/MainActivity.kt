@@ -2,33 +2,48 @@ package com.artonov.ariwara
 
 import android.app.AlertDialog
 import android.content.Context
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.MenuItem
-import android.view.inputmethod.EditorInfo
 import android.widget.EditText
-import android.widget.TextView
-import androidx.navigation.findNavController
-import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.onNavDestinationSelected
-import androidx.navigation.ui.setupWithNavController
 import com.artonov.ariwara.databinding.ActivityMainBinding
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
 
+    //UNHAPPY, SAD, FINE, GOOD, HAPPY
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        getUsername()
+        setupListener()
+        setupBottomNav()
+    }
 
-        val navHostFragment = supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment
-        val navController = navHostFragment.navController
-        // Bottom Navbar
-        binding.bottomNavigationView.setupWithNavController(navController)
-        val builder = AppBarConfiguration.Builder(navController.graph)
+    private fun setupListener() {
+        binding.fabAdd.setOnClickListener() {
+            val intent = Intent(this, JournalActivity::class.java)
+            startActivity(intent)
+            overridePendingTransition(0, 0)
+        }
+    }
+    private fun setupBottomNav() {
+        binding.bottomNavigationView.setOnNavigationItemSelectedListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.menuProfile -> {
+                    val intent = Intent(this, ProfileActivity::class.java)
+                    startActivity(intent)
+                    overridePendingTransition(0, 0)
+                    return@setOnNavigationItemSelectedListener true
+                }
+                else -> return@setOnNavigationItemSelectedListener false
+            }
+        }
+    }
 
+    fun getUsername() {
         val prefs = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
         val name = prefs.getString("name", null)
 
@@ -49,33 +64,6 @@ class MainActivity : AppCompatActivity() {
 
             builder.show()
         }
-
-
-
-//        val username = findViewById<TextView>(R.id.tvUsername)
-//        username.text = "Halo $name"
-
-//        // Ambil EditText dan set teksnya dengan nama pengguna
-//        val editName = findViewById<EditText>(R.id.editName)
-//        editName.setText(name)
-//
-//        // Tambahkan listener untuk menyimpan nama pengguna yang baru
-//        editName.setOnEditorActionListener { _, actionId, _ ->
-//            if (actionId == EditorInfo.IME_ACTION_DONE) {
-//                // Simpan nama pengguna ke SharedPreferences
-//                val editor = prefs.edit()
-//                editor.putString("name", editName.text.toString())
-//                editor.apply()
-//                true
-//            } else {
-//                false
-//            }
-//        }
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        val navController = findNavController(R.id.fragmentContainerView)
-        return item.onNavDestinationSelected(navController) || super.onOptionsItemSelected(item)
     }
 }
 
