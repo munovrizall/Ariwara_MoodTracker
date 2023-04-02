@@ -1,11 +1,14 @@
 package com.artonov.ariwara
 
 import android.app.DatePickerDialog
+import android.content.res.ColorStateList
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.ContactsContract
+import android.view.View
 import android.widget.EditText
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import com.artonov.ariwara.database.Diary
 import com.artonov.ariwara.database.DiaryDB
 import com.artonov.ariwara.databinding.ActivityJournalBinding
@@ -18,6 +21,7 @@ import java.util.*
 class JournalActivity : AppCompatActivity() {
     private lateinit var binding: ActivityJournalBinding
     private var mood: String = ""
+    private var diaryId: Int = 0
 
     val db by lazy { DiaryDB(this) }
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,16 +30,28 @@ class JournalActivity : AppCompatActivity() {
         setContentView(binding.root)
         setupView()
         setupListener()
+        diaryId = intent.getIntExtra("intent_id", 0)
     }
 
     fun setupView() {
         val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
         val currentDate = sdf.format(Date())
-
         binding.etDate.setText(currentDate)
+
+        val intentType = intent.getIntExtra("intent_type", 0)
+        when (intentType) {
+            Constant.TYPE_CREATE -> {
+                binding.fabUpdate.visibility = View.GONE
+            }
+            Constant.TYPE_UPDATE -> {
+                binding.fabDone.visibility = View.INVISIBLE
+                getDiary()
+            }
+        }
     }
 
     fun setupListener() {
+        mood = "Fine"
         binding.apply {
             rgMood.setOnCheckedChangeListener { _, checkedId ->
                 when (checkedId) {
@@ -63,6 +79,38 @@ class JournalActivity : AppCompatActivity() {
                         )
                     )
                     finish()
+                }
+            }
+            fabUpdate.setOnClickListener() {
+                CoroutineScope(Dispatchers.IO).launch {
+                    db.diaryDao().updateDiary(
+                        Diary(
+                            diaryId,
+                            mood,
+                            binding.etNote.text.toString(),
+                            binding.etDate.text.toString()
+                        )
+                    )
+                    finish()
+                }
+            }
+        }
+    }
+
+    fun getDiary() {
+        diaryId = intent.getIntExtra("intent_id", 0)
+
+        CoroutineScope(Dispatchers.IO).launch {
+            val diary = db.diaryDao().getDiaryById(diaryId)[0]
+            binding.apply {
+                etDate.setText(diary.date)
+                etNote.setText(diary.note)
+                when (diary.mood) {
+                    "Unhappy" -> binding.rbUnhappy.isChecked = true
+                    "Sad" -> binding.rbSad.isChecked = true
+                    "Fine" -> binding.rbFine.isChecked = true
+                    "Good" -> binding.rbGood.isChecked = true
+                    "Happy" -> binding.rbHappy.isChecked = true
                 }
             }
         }

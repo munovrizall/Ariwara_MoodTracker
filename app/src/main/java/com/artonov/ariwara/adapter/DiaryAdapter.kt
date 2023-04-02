@@ -29,6 +29,10 @@ class DiaryAdapter(private val context: Context, private val diaries: ArrayList<
                 tvNote.text = diary.note
                 tvDate.text = formatDate(diary.date)
                 setMood(diary.mood, ivCapsule)
+
+                cardDiary.setOnClickListener() {
+                    listener.onUpdate(diary)
+                }
             }
         }
     }

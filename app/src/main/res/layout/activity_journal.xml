@@ -47,6 +47,7 @@
             android:id="@+id/rbFine"
             android:layout_width="64dp"
             android:layout_height="64dp"
+            android:checked="true"
             android:text="Fine" />
 
         <RadioButton
@@ -113,6 +114,17 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/ic_check" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabUpdate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="24dp"
+        android:clickable="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/ic_save" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
