@@ -33,6 +33,10 @@ class DiaryAdapter(private val context: Context, private val diaries: ArrayList<
                 cardDiary.setOnClickListener() {
                     listener.onUpdate(diary)
                 }
+
+                ivDelete.setOnClickListener() {
+                    listener.onDelete(diary)
+                }
             }
         }
     }
@@ -51,6 +55,7 @@ class DiaryAdapter(private val context: Context, private val diaries: ArrayList<
 
     interface OnAdapterListener {
         fun onUpdate(diary: Diary)
+        fun onDelete(diary: Diary)
     }
 
     fun setData(list: List<Diary>) {

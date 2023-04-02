@@ -2,6 +2,7 @@ package com.artonov.ariwara
 
 import android.app.AlertDialog
 import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -51,6 +52,10 @@ class MainActivity : AppCompatActivity() {
             override fun onUpdate(diary: Diary) {
                 intentJournal(diary.id, Constant.TYPE_UPDATE)
             }
+
+            override fun onDelete(diary: Diary) {
+                deleteDiary(diary)
+            }
         })
         binding.rvJournal.apply {
             layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
@@ -86,6 +91,24 @@ class MainActivity : AppCompatActivity() {
             withContext(Dispatchers.Main) {
                 diaryAdapter.setData(diaryResponse)
             }
+        }
+    }
+
+    fun deleteDiary(diary: Diary) {
+        val alertDialog = AlertDialog.Builder(this)
+        alertDialog.apply {
+            setTitle("Konfirmasi")
+            setMessage("Yakin ingin menghapus?")
+            setPositiveButton("Hapus", DialogInterface.OnClickListener { dialogInterface, i ->
+                CoroutineScope(Dispatchers.IO).launch {
+                    db.diaryDao().deleteDiary(diary)
+                    loadData()
+                }
+            })
+            setNegativeButton("Batal", DialogInterface.OnClickListener { dialogInterface, i ->
+                dialogInterface.dismiss()
+            })
+            alertDialog.show()
         }
     }
 
