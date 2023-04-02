@@ -14,7 +14,7 @@ interface DiaryDao {
     @Delete
     suspend fun deleteDiary(diary: Diary)
 
-    @Query("SELECT * FROM diary")
+    @Query("SELECT * FROM diary ORDER BY date DESC")
     suspend fun getDiaries(): List<Diary>
 
     @Query("SELECT * FROM diary WHERE id=:diary_id")

@@ -5,30 +5,59 @@ import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.EditText
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import com.artonov.ariwara.database.DiaryDB
+import com.artonov.ariwara.adapter.DiaryAdapter
+import com.artonov.ariwara.database.Diary
 import com.artonov.ariwara.databinding.ActivityMainBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
+    lateinit var diaryAdapter: DiaryAdapter
 
-    //UNHAPPY, SAD, FINE, GOOD, HAPPY
+    val db by lazy { DiaryDB(this) }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         getUsername()
         setupListener()
+        setupRecyclerView()
         setupBottomNav()
+    }
+
+    override fun onStart() {
+        super.onStart()
+        loadData()
     }
 
     private fun setupListener() {
         binding.fabAdd.setOnClickListener() {
-            val intent = Intent(this, JournalActivity::class.java)
-            startActivity(intent)
+            intentJournal(0, Constant.TYPE_CREATE)
             overridePendingTransition(0, 0)
         }
     }
+
+    private fun setupRecyclerView() {
+        diaryAdapter = DiaryAdapter(this, arrayListOf(), object : DiaryAdapter.OnAdapterListener {
+            override fun onUpdate(diary: Diary) {
+                intentJournal(diary.id, Constant.TYPE_UPDATE)
+            }
+        })
+        binding.rvJournal.apply {
+            layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+            adapter = diaryAdapter
+        }
+    }
+
     private fun setupBottomNav() {
         binding.bottomNavigationView.setOnNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
@@ -39,6 +68,23 @@ class MainActivity : AppCompatActivity() {
                     return@setOnNavigationItemSelectedListener true
                 }
                 else -> return@setOnNavigationItemSelectedListener false
+            }
+        }
+    }
+
+    fun intentJournal(diaryId: Int, intentType: Int) {
+        startActivity(
+            Intent(this@MainActivity, JournalActivity::class.java)
+                .putExtra("intent_id", diaryId)
+                .putExtra("intent_type", intentType)
+        )
+    }
+
+    fun loadData() {
+        CoroutineScope(Dispatchers.IO).launch {
+            val diaryResponse = db.diaryDao().getDiaries()
+            withContext(Dispatchers.Main) {
+                diaryAdapter.setData(diaryResponse)
             }
         }
     }
