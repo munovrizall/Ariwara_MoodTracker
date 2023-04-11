@@ -64,45 +64,55 @@
     </RadioGroup>
 
 
-    <EditText
-        android:id="@+id/etDate"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tlDate"
         android:layout_width="0dp"
-        android:layout_height="48dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="8dp"
-        android:hint="Masukkan Tanggal"
-        app:layout_constraintEnd_toStartOf="@+id/ivCalendar"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/rgMood" />
-
-    <ImageView
-        android:id="@+id/ivCalendar"
-        android:layout_width="36dp"
-        android:layout_height="36dp"
         android:layout_marginEnd="16dp"
-        android:src="@drawable/ic_calendar"
-        app:layout_constraintBottom_toBottomOf="@+id/etDate"
+        android:hint="Masukkan Tanggal"
+        app:endIconContentDescription="Date"
+        app:endIconDrawable="@drawable/ic_calendar"
+        app:endIconMode="custom"
+        app:boxBackgroundColor="#00000000"
+        app:boxBackgroundMode="outline"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/etDate" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/rgMood" >
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etDate"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:focusable="false"
+            />
+    </com.google.android.material.textfield.TextInputLayout>
 
 
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/etNote"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tlNote"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
-        android:ems="10"
-        android:inputType="textMultiLine"
+        app:boxBackgroundColor="#00000000"
+        app:boxBackgroundMode="outline"
         android:hint="Sampaikan keluh kesahmu"
-        android:gravity="start"
         app:layout_constraintBottom_toTopOf="@+id/fabDone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etDate" />
+        app:layout_constraintTop_toBottomOf="@+id/tlDate">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etNote"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:inputType="textMultiLine"
+            android:gravity="start"/>
+    </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabDone"
