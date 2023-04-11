@@ -19,4 +19,8 @@ interface DiaryDao {
 
     @Query("SELECT * FROM diary WHERE id=:diary_id")
     suspend fun getDiaryById(diary_id: Int): List<Diary>
+
+    @Query("SELECT id, note, date, mood, COUNT(*) as count FROM diary GROUP BY mood")
+    fun getMoodCounts(): List<Diary>
+
 }

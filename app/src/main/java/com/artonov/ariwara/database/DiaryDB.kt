@@ -7,18 +7,19 @@ import androidx.room.RoomDatabase
 
 @Database(
     entities = [Diary::class],
-    version = 1
+    version = 2
 )
-abstract class DiaryDB: RoomDatabase() {
+abstract class DiaryDB : RoomDatabase() {
 
     abstract fun diaryDao(): DiaryDao
 
     companion object {
 
-        @Volatile private var instance : DiaryDB? = null
+        @Volatile
+        private var instance: DiaryDB? = null
         private val LOCK = Any()
 
-        operator fun invoke(context: Context) = instance ?: synchronized(LOCK){
+        operator fun invoke(context: Context) = instance ?: synchronized(LOCK) {
             instance ?: buildDatabase(context).also {
                 instance = it
             }
@@ -28,7 +29,9 @@ abstract class DiaryDB: RoomDatabase() {
             context.applicationContext,
             DiaryDB::class.java,
             "diary.db"
-        ).build()
+        )
+            .fallbackToDestructiveMigration()
+            .build()
 
     }
 }

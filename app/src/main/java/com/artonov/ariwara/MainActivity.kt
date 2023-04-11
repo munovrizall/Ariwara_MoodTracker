@@ -4,10 +4,12 @@ import android.app.AlertDialog
 import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
+import android.content.res.Configuration
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.EditText
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.artonov.ariwara.database.DiaryDB
@@ -28,6 +30,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
+        forceLightMode()
         setContentView(binding.root)
         getUsername()
         setupListener()
@@ -133,6 +136,21 @@ class MainActivity : AppCompatActivity() {
 
             builder.show()
         }
+    }
+
+    fun forceLightMode() {
+        val nightModeFlags = resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
+        when (nightModeFlags) {
+            Configuration.UI_MODE_NIGHT_YES -> {
+                // Mode gelap diaktifkan
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+            }
+            Configuration.UI_MODE_NIGHT_NO, Configuration.UI_MODE_NIGHT_UNDEFINED -> {
+                // Mode gelap tidak diaktifkan
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+            }
+        }
+
     }
 }
 
