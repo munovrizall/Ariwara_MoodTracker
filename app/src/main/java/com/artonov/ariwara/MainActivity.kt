@@ -41,21 +41,18 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
+        forceLightMode()
         setContentView(binding.root)
         getUsername()
         setupListener()
         setupRecyclerView()
         setupBottomNav()
-
     }
 
     override fun onStart() {
         super.onStart()
         loadData()
     }
-
-
-
 
     private fun setupListener() {
         binding.fabAdd.setOnClickListener() {
@@ -152,19 +149,19 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-//    fun forceLightMode() {
-//        val nightModeFlags = resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
-//        when (nightModeFlags) {
-//            Configuration.UI_MODE_NIGHT_YES -> {
-//                // Mode gelap diaktifkan
-//                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-//            }
-//            Configuration.UI_MODE_NIGHT_NO, Configuration.UI_MODE_NIGHT_UNDEFINED -> {
-//                // Mode gelap tidak diaktifkan
-//                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-//            }
-//        }
-//
-//    }
+    fun forceLightMode() {
+        val nightModeFlags = resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
+        when (nightModeFlags) {
+            Configuration.UI_MODE_NIGHT_YES -> {
+                // Mode gelap diaktifkan
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+            }
+            Configuration.UI_MODE_NIGHT_NO, Configuration.UI_MODE_NIGHT_UNDEFINED -> {
+                // Mode gelap tidak diaktifkan
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+            }
+        }
+
+    }
 }
 

@@ -36,7 +36,7 @@ class JournalActivity : AppCompatActivity() {
     fun setupView() {
         val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
         val currentDate = sdf.format(Date())
-        binding.tlDate.editText?.setText(currentDate)
+        binding.etDate.setText(currentDate)
 
         val intentType = intent.getIntExtra("intent_type", 0)
         when (intentType) {
@@ -65,9 +65,9 @@ class JournalActivity : AppCompatActivity() {
             etDate.setOnClickListener() {
                 getDate()
             }
-//            ivCalendar.setOnClickListener() {
-//                getDate()
-//            }
+            ivCalendar.setOnClickListener() {
+                getDate()
+            }
             fabDone.setOnClickListener() {
                 CoroutineScope(Dispatchers.IO).launch {
                     db.diaryDao().addDiary(
@@ -75,7 +75,7 @@ class JournalActivity : AppCompatActivity() {
                             0,
                             mood,
                             binding.etNote.text.toString(),
-                            binding.tlDate.editText?.text.toString()
+                            binding.etDate.text.toString()
                         )
                     )
                     finish()
@@ -88,7 +88,7 @@ class JournalActivity : AppCompatActivity() {
                             diaryId,
                             mood,
                             binding.etNote.text.toString(),
-                            binding.tlDate.editText?.text.toString()
+                            binding.etDate.text.toString()
                         )
                     )
                     finish()
@@ -103,7 +103,7 @@ class JournalActivity : AppCompatActivity() {
         CoroutineScope(Dispatchers.IO).launch {
             val diary = db.diaryDao().getDiaryById(diaryId)[0]
             binding.apply {
-                tlDate.editText?.setText(diary.date)
+                etDate.setText(diary.date)
                 etNote.setText(diary.note)
                 when (diary.mood) {
                     "Unhappy" -> binding.rbUnhappy.isChecked = true
@@ -145,7 +145,7 @@ class JournalActivity : AppCompatActivity() {
                     val dateString = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
                         .format(selectedDate)
                     // Set tanggal yang dipilih ke TextInputEditText
-                    binding.tlDate.editText?.setText(dateString)
+                    binding.etDate.setText(dateString)
                 }
             },
             year,
