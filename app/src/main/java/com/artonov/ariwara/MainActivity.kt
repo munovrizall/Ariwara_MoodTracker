@@ -1,26 +1,37 @@
 package com.artonov.ariwara
 
+import android.app.AlarmManager
 import android.app.AlertDialog
+import android.app.NotificationManager
+import android.app.PendingIntent
 import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.content.res.Configuration
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.app.ActivityCompat
+import androidx.core.app.NotificationManagerCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.artonov.ariwara.database.DiaryDB
 import com.artonov.ariwara.adapter.DiaryAdapter
 import com.artonov.ariwara.database.Diary
 import com.artonov.ariwara.databinding.ActivityMainBinding
+import com.artonov.ariwara.util.NotificationReceiver
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.timepicker.MaterialTimePicker
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.util.*
+import android.Manifest
+import android.content.pm.PackageManager
 
 class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
@@ -30,18 +41,21 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
-        forceLightMode()
         setContentView(binding.root)
         getUsername()
         setupListener()
         setupRecyclerView()
         setupBottomNav()
+
     }
 
     override fun onStart() {
         super.onStart()
         loadData()
     }
+
+
+
 
     private fun setupListener() {
         binding.fabAdd.setOnClickListener() {
@@ -138,19 +152,19 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun forceLightMode() {
-        val nightModeFlags = resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
-        when (nightModeFlags) {
-            Configuration.UI_MODE_NIGHT_YES -> {
-                // Mode gelap diaktifkan
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-            }
-            Configuration.UI_MODE_NIGHT_NO, Configuration.UI_MODE_NIGHT_UNDEFINED -> {
-                // Mode gelap tidak diaktifkan
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-            }
-        }
-
-    }
+//    fun forceLightMode() {
+//        val nightModeFlags = resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
+//        when (nightModeFlags) {
+//            Configuration.UI_MODE_NIGHT_YES -> {
+//                // Mode gelap diaktifkan
+//                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+//            }
+//            Configuration.UI_MODE_NIGHT_NO, Configuration.UI_MODE_NIGHT_UNDEFINED -> {
+//                // Mode gelap tidak diaktifkan
+//                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+//            }
+//        }
+//
+//    }
 }
 
