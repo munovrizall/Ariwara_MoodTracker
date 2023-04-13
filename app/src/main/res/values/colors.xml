@@ -12,4 +12,7 @@
     <color name="yellow">#FACD1C</color>
     <color name="lime">#9ED871</color>
     <color name="green">#2BD028</color>
+    <color name="brown">#D4A19C</color>
+    <color name="light_brown">#DAD1B4</color>
+    <color name="cream">#FAF5EB</color>
 </resources>

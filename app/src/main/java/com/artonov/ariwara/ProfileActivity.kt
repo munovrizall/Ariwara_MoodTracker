@@ -13,6 +13,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationManagerCompat
+import androidx.core.content.ContextCompat
 import com.artonov.ariwara.database.DiaryDB
 import com.artonov.ariwara.databinding.ActivityProfileBinding
 import com.artonov.ariwara.util.NotificationReceiver
@@ -89,6 +90,11 @@ class ProfileActivity : AppCompatActivity() {
     }
 
     private fun setupBottomNav() {
+        val colorStateList = ContextCompat.getColorStateList(this, R.color.menu_bottom_color)
+        binding.apply {
+            bottomNavigationView.itemTextColor = colorStateList
+            bottomNavigationView.itemIconTintList = colorStateList
+        }
         binding.bottomNavigationView.selectedItemId = R.id.menuProfile
         binding.bottomNavigationView.setOnNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {

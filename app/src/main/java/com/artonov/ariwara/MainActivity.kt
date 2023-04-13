@@ -32,6 +32,9 @@ import kotlinx.coroutines.withContext
 import java.util.*
 import android.Manifest
 import android.content.pm.PackageManager
+import android.content.res.ColorStateList
+import android.graphics.Color
+import androidx.core.content.ContextCompat
 
 class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
@@ -44,6 +47,7 @@ class MainActivity : AppCompatActivity() {
         forceLightMode()
         setContentView(binding.root)
         getUsername()
+        setupView()
         setupListener()
         setupRecyclerView()
         setupBottomNav()
@@ -54,6 +58,9 @@ class MainActivity : AppCompatActivity() {
         loadData()
     }
 
+    private fun setupView() {
+        binding.fabAdd.setImageTintList(ContextCompat.getColorStateList(this, R.color.cream))
+    }
     private fun setupListener() {
         binding.fabAdd.setOnClickListener() {
             intentJournal(0, Constant.TYPE_CREATE)
@@ -78,6 +85,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupBottomNav() {
+        val colorStateList = ContextCompat.getColorStateList(this, R.color.menu_bottom_color)
+        binding.apply {
+            bottomNavigationView.itemTextColor = colorStateList
+            bottomNavigationView.itemIconTintList = colorStateList
+        }
         binding.bottomNavigationView.setOnNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.menuProfile -> {

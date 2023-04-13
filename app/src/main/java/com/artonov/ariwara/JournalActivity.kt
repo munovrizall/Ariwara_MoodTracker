@@ -48,6 +48,9 @@ class JournalActivity : AppCompatActivity() {
                 getDiary()
             }
         }
+        binding.fabDone.setImageTintList(ContextCompat.getColorStateList(this, R.color.cream))
+        binding.fabUpdate.setImageTintList(ContextCompat.getColorStateList(this, R.color.cream))
+
     }
 
     fun setupListener() {
