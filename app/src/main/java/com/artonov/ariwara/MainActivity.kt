@@ -58,6 +58,10 @@ class MainActivity : AppCompatActivity() {
         loadData()
     }
 
+    override fun onBackPressed() {
+        // kosongkan implementasi method ini
+    }
+
     private fun setupView() {
         binding.fabAdd.setImageTintList(ContextCompat.getColorStateList(this, R.color.cream))
     }

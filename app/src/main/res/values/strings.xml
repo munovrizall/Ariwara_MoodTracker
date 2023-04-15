@@ -3,4 +3,6 @@
     <string name="default_name">User</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="onboarding1_desc">Ariwara Diary adalah fitur yang membantu kamu untuk menyimpan dan mengekspresikan perasaan dan pikiran kamu setiap hari.</string>
+    <string name="onboarding3_desc">Dengan Ariwara, kami ingin membantu kamu untuk merawat kesehatan mentalmu, dan merasa lebih bahagia di hidup kamu.</string>
 </resources>

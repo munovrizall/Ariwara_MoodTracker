@@ -5,6 +5,7 @@ import android.content.res.ColorStateList
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.ContactsContract
+import android.view.MenuItem
 import android.view.View
 import android.widget.EditText
 import android.widget.Toast
@@ -28,9 +29,19 @@ class JournalActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityJournalBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
         setupView()
         setupListener()
         diaryId = intent.getIntExtra("intent_id", 0)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        // tangani klik pada tombol kembali
+        if (item.itemId == android.R.id.home) {
+            onBackPressed()
+            return true
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     fun setupView() {
