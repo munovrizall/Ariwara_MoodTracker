@@ -7,6 +7,7 @@
     tools:context=".MainActivity">
 
 
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvJournal"
         android:layout_width="match_parent"
@@ -46,5 +47,39 @@
         app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/menu_bottom" />
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/blank_diary"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        >
+
+        <ImageView
+            android:id="@+id/ivBlank"
+            android:layout_width="160dp"
+            android:layout_height="160dp"
+            android:src="@drawable/blank_diary"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.3" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Ariwara Diary masih kosong, yuk mulai ekspresikan perasaanmu"
+            android:textSize="18sp"
+            android:textColor="@color/black"
+            android:textAlignment="center"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ivBlank" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

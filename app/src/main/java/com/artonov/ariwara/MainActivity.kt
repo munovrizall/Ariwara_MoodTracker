@@ -34,7 +34,10 @@ import android.Manifest
 import android.content.pm.PackageManager
 import android.content.res.ColorStateList
 import android.graphics.Color
+import android.view.View
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
 
 class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
@@ -46,15 +49,16 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         forceLightMode()
         setContentView(binding.root)
-        getUsername()
         setupView()
         setupListener()
         setupRecyclerView()
         setupBottomNav()
+        getUsername()
     }
 
     override fun onStart() {
         super.onStart()
+        handleUi()
         loadData()
     }
 
@@ -65,6 +69,7 @@ class MainActivity : AppCompatActivity() {
     private fun setupView() {
         binding.fabAdd.setImageTintList(ContextCompat.getColorStateList(this, R.color.cream))
     }
+
     private fun setupListener() {
         binding.fabAdd.setOnClickListener() {
             intentJournal(0, Constant.TYPE_CREATE)
@@ -115,11 +120,23 @@ class MainActivity : AppCompatActivity() {
         )
     }
 
-    fun loadData() {
+    fun loadData(){
         CoroutineScope(Dispatchers.IO).launch {
             val diaryResponse = db.diaryDao().getDiaries()
             withContext(Dispatchers.Main) {
                 diaryAdapter.setData(diaryResponse)
+            }
+        }
+    }
+
+    fun handleUi() {
+        lifecycleScope.launch {
+            var response = db.diaryDao().getDiaries()
+
+            if (response.isEmpty()) {
+                binding.blankDiary.visibility = View.VISIBLE
+            } else {
+                binding.blankDiary.visibility = View.GONE
             }
         }
     }
@@ -133,6 +150,7 @@ class MainActivity : AppCompatActivity() {
                 CoroutineScope(Dispatchers.IO).launch {
                     db.diaryDao().deleteDiary(diary)
                     loadData()
+                    handleUi()
                 }
             })
             setNegativeButton("Batal", DialogInterface.OnClickListener { dialogInterface, i ->
