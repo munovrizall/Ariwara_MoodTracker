@@ -2,6 +2,7 @@ package com.artonov.ariwara
 
 import android.app.DatePickerDialog
 import android.content.res.ColorStateList
+import android.graphics.drawable.GradientDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.ContactsContract
@@ -30,6 +31,7 @@ class JournalActivity : AppCompatActivity() {
         binding = ActivityJournalBinding.inflate(layoutInflater)
         setContentView(binding.root)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.title = "Buat Diary"
         setupView()
         setupListener()
         diaryId = intent.getIntExtra("intent_id", 0)
@@ -65,6 +67,7 @@ class JournalActivity : AppCompatActivity() {
     }
 
     fun setupListener() {
+        setupRgMood()
         mood = "Fine"
         binding.apply {
             rgMood.setOnCheckedChangeListener { _, checkedId ->
@@ -77,9 +80,6 @@ class JournalActivity : AppCompatActivity() {
                 }
             }
             etDate.setOnClickListener() {
-                getDate()
-            }
-            ivCalendar.setOnClickListener() {
                 getDate()
             }
             fabDone.setOnClickListener() {
@@ -107,6 +107,44 @@ class JournalActivity : AppCompatActivity() {
                     )
                     finish()
                 }
+            }
+        }
+    }
+
+    fun setupRgMood() {
+        binding.rbUnhappy.setOnCheckedChangeListener { buttonView, isChecked ->
+            if (isChecked) {
+                binding.rbUnhappy.setBackgroundResource(R.drawable.rb_unhappy)
+            } else {
+                binding.rbUnhappy.setBackgroundResource(R.drawable.rb_unhappy_passive)
+            }
+        }
+        binding.rbSad.setOnCheckedChangeListener { buttonView, isChecked ->
+            if (isChecked) {
+                binding.rbSad.setBackgroundResource(R.drawable.rb_sad)
+            } else {
+                binding.rbSad.setBackgroundResource(R.drawable.rb_sad_passive)
+            }
+        }
+        binding.rbFine.setOnCheckedChangeListener { buttonView, isChecked ->
+            if (isChecked) {
+                binding.rbFine.setBackgroundResource(R.drawable.rb_fine)
+            } else {
+                binding.rbFine.setBackgroundResource(R.drawable.rb_fine_passive)
+            }
+        }
+        binding.rbGood.setOnCheckedChangeListener { buttonView, isChecked ->
+            if (isChecked) {
+                binding.rbGood.setBackgroundResource(R.drawable.rb_good)
+            } else {
+                binding.rbGood.setBackgroundResource(R.drawable.rb_good_passive)
+            }
+        }
+        binding.rbHappy.setOnCheckedChangeListener { buttonView, isChecked ->
+            if (isChecked) {
+                binding.rbHappy.setBackgroundResource(R.drawable.rb_happy)
+            } else {
+                binding.rbHappy.setBackgroundResource(R.drawable.rb_happy_passive)
             }
         }
     }

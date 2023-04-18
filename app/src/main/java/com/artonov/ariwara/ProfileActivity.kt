@@ -53,6 +53,7 @@ class ProfileActivity : AppCompatActivity() {
         setupView()
         setupBottomNav()
         setupPieChart()
+        supportActionBar?.title = "Profile"
         if (!isPostNotificationPermissionGranted()) requestPermissions()
 
         binding.ivNotification.setOnClickListener() {
