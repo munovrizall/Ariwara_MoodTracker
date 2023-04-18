@@ -6,4 +6,7 @@
     <string name="onboarding1_desc">Ariwara Diary akan membantu kamu untuk menyimpan dan mengekspresikan perasaan dan pikiran kamu setiap hari.</string>
     <string name="onboarding2_desc">Ariwara Daily Affirmation akan memberikan kata-kata dukungan setiap hari. Untuk meningkatkan percaya diri kamu.</string>
     <string name="onboarding3_desc">Dengan Ariwara, kami ingin membantu kamu untuk merawat kesehatan mentalmu, dan merasa lebih bahagia di hidup kamu.</string>
+    <string name="bagaimana_perasaanmu">Bagaimana perasaanmu?</string>
+    <string name="masukkan_tanggal">Masukkan Tanggal</string>
+    <string name="sampaikan_keluh_kesahmu">Sampaikan keluh kesahmu</string>
 </resources>

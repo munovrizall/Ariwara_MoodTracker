@@ -83,6 +83,9 @@ class ProfileActivity : AppCompatActivity() {
             "Kamu layak bahagia",
             "Kamu itu unik",
             "Kamu layak untuk diterima dan dicintai",
+            "Kamu pantas mendapatkan segala yang terbaik",
+            "Kamu adalah sumber kekuatanmu sendiri",
+            "Kamu selalu punya pilihan untuk menjadi lebih baik"
         )
         val randomWord = wordList.random()
 
@@ -217,11 +220,11 @@ class ProfileActivity : AppCompatActivity() {
                 }
 
                 val colors = mutableListOf<Int>(
-                    Color.parseColor("#FFEB3B"), // Kuning
-                    Color.parseColor("#4CAF50"), // Hijau
-                    Color.parseColor("#2196F3"), // Biru
-                    Color.parseColor("#FF9800"), // Jingga
-                    Color.parseColor("#F44336"), // Merah
+                    Color.parseColor("#FACD1C"), // Kuning
+                    Color.parseColor("#9ED871"), // Hijau muda
+                    Color.parseColor("#2BD028"), // Hijau
+                    Color.parseColor("#FF8541"), // Jingga
+                    Color.parseColor("#FF565F"), // Merah
                 )
 
 

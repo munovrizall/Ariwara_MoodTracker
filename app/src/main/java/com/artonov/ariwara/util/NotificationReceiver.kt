@@ -22,6 +22,9 @@ class NotificationReceiver : BroadcastReceiver() {
             "Kamu layak bahagia",
             "Kamu itu unik",
             "Kamu layak untuk diterima dan dicintai",
+            "Kamu pantas mendapatkan segala yang terbaik",
+            "Kamu adalah sumber kekuatanmu sendiri",
+            "Kamu selalu punya pilihan untuk menjadi lebih baik"
         )
         val randomWord = wordList.random()
 

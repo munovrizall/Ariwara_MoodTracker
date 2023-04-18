@@ -48,6 +48,7 @@
                 android:layout_marginStart="-32dp"
                 android:layout_marginEnd="16dp"
                 android:text="Halo, mamang"
+                android:fontFamily="@font/poppins"
                 android:textColor="@color/black"
                 android:textSize="24sp"
                 android:textStyle="bold"
@@ -62,7 +63,8 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
                 android:text="Laporan perasaanmu: "
-                android:textSize="16sp"
+                android:textSize="18sp"
+                android:fontFamily="@font/pixabubble"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@id/tvUsername"
                 app:layout_constraintTop_toBottomOf="@id/tvUsername" />
@@ -81,15 +83,28 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 
+    <TextView
+        android:id="@+id/tvProfileTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Laporan perasaanmu:"
+        android:textColor="@color/black"
+        android:fontFamily="@font/poppins"
+        android:textSize="20sp"
+        android:layout_marginTop="24dp"
+        android:layout_marginStart="16dp"
+        app:layout_constraintTop_toBottomOf="@id/cardGreeting"
+        app:layout_constraintStart_toStartOf="parent"
+        />
     <com.github.mikephil.charting.charts.PieChart
         android:id="@+id/moodPieChart"
         android:layout_width="match_parent"
         android:layout_height="300dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardGreeting"
+        app:layout_constraintTop_toBottomOf="@+id/tvProfileTitle"
         app:layout_constraintVertical_bias="0.5" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
