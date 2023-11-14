@@ -10,4 +10,4 @@ Ariwara is a diary application to record daily activites and also track daily mo
 - Lottie library to show animation
 
 ## Screenshot :
-<img src="https://github-production-user-asset-6210df.s3.amazonaws.com/85984439/282791255-4057e7a9-cb21-495d-8a8f-93bbaf0c2454.png" width="500">
+<img src="https://github-production-user-asset-6210df.s3.amazonaws.com/85984439/282791255-4057e7a9-cb21-495d-8a8f-93bbaf0c2454.png">
